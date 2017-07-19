@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import axios from 'axios';
 import AlbumDetail from './album-detail';
 
@@ -16,6 +16,10 @@ class AlbumList extends Component {
             .then(response => this.setState({ albums: response.data }));
     }
 
+    /* map over our available data (albums) and return data
+     * for each available piece of data and set the key as the title
+     * we typically would use the unique ID as the key
+    */
     renderAlbums() {
         return this.state.albums.map(album =>
             <AlbumDetail key={album.title} album={album} />);
@@ -23,11 +27,17 @@ class AlbumList extends Component {
 
     // render the component to the screen upon calling this class
     render() {
-        console.log(this.state);
+        // console.log(this.state);
+
+        /* This is the top level component for our list
+        * and it contains all the album 'cards'
+        * We must implement a *** ScrollView *** here so that
+        * we can scroll through the list of albums we display
+        */
         return (
-            <View>
+            <ScrollView>
                 { this.renderAlbums() }
-            </View>
+            </ScrollView>
         );
     }
 }
